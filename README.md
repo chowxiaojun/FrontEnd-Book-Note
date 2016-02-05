@@ -29,3 +29,37 @@
 
 1. W3C推出一个标准化的DOM：一个与系统平台和编程语言无关的接口，程序和脚本可通过该接口动态的访问和修改文档的内容、结构和样式；
 2. 现在的各大浏览器都内置了对标准DOM的支持，可以实现“编写一次，随处运行”。
+
+### 第二章 JavaScript语法
+> JavaScript
+
+1. 程序设计语言分为解释型和编译型两大类；
+2. JavaScript是一种解释型程序语言，一般通过Web浏览器就负责完成相关的解释和执行。
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Just a test</title>
+</head>
+<body>
+
+    <!-- 这是HTML中的注释 -->
+    <!-- <script>标签最好是放到HTML文档的最后，</body>标签之前 -->
+    <!-- 因为js文件的加载和执行会阻塞文档的加载和渲染 -->
+    <!-- 执行JavaScript代码的方式：
+        (1) 直接将JavaScript代码放在<script>标签之间；
+        (2) 将JavaScript代码组织为一个独立文件
+    -->
+    <script type="text/javascript">
+        // JavaScript代码
+    </script>
+    <script type="text/javascript" src="example.js"></script>
+</body>
+</html>
+
+```
+
+> 语法：语言结构方面的各项规则称之为语法。
+
+1.
