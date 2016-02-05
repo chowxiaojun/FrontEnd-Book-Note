@@ -1,10 +1,10 @@
 // DOM Level 0 常用于翻转图片和验证表单数据，此时还未标准化
 // 'images'和'forms'是在JavaScript中预先定义的
 document.images[2]; // 引用文档中的第三个图像
-document.forms['details']; // 文档中名为'details'的表单
+document.forms['details']; // 引用文档中名为'details'的表单
 
 
-// DHTML
+// DHTML: HTML, CSS, JavaScript
 
 // HTML
 <div id="my-element"> This is my element</div>
