@@ -1,5 +1,3 @@
-##《JavaScript DOM编程艺术》读书笔记
-
 ### 第一章 JavaScript简史
 
 > Web标准：
@@ -62,4 +60,65 @@
 
 > 语法：语言结构方面的各项规则称之为语法。
 
-1.
+> 语句：即指令。
+
+```
+first statement;
+second statement;
+```
+> 注释：脚本中仅供自己参考或提醒自己的信息，解释器会忽略这些信息。
+
+```
+// 注释
+/* 注释 */
+```
+> 变量(variable)：变量的名字区分大小写，不允许变量名中包含空格或标点符号(美元符号 "$"例外)，可使用字母、数字、美元符号和下划线。
+
+```
+// JavaScript允许直接对变量赋值而无需事先声明，如下所示。
+mood = "happy";
+age = 33;
+// 如何声明变量：
+var mood;
+var age;
+var mood, age;
+// 声明，赋值
+var mood = "happy";
+var age = 33;
+```
+
+> 命名方式——驼峰格式(camel case)：是函数名、方法名和对象属性名的首选格式。
+
+```
+var camelCase;
+```
+> 数据类型：JavaScript不需要进行类型声明，是一种弱类型(weakly typed)语言，程序员可在任何阶段改变变量的数据类型。
+
+```
+// 1. 字符串：由零个或多个字符构成，必须包在引号里，单引号或双引号都可以。不管单引号还是双引号，在同一脚本中最好保持一致
+var mood = 'happy';
+var mood = "happy";
+var mood = "don't ask"; // 字符串中包含单引号
+var mood = 'don\'t ask'; // 也可对单引号进行转义，用反斜杠
+
+// 2. 数字：无需限定它必须是一个整数，可以是浮点数(任意位)
+var age = 33.25;
+var temperature = -20;
+var temp = -20.3333;
+
+// 3. 布尔值：true 或 false
+
+// 4. 数组：是指一个变量表示一个值的组合
+var beatles = Array(4); // 声明长度
+var beatles = Array(); // 不声明长度
+var beatles = [];
+var beatles = Array("John", "Paul", "George", "Ringo");
+var beatles = ["John", "Paul", "George", "Ringo"];
+var lennon = ["John", 1940, false]; // 3中数据类型混在一起存入一个数组
+// 关联数组，在JavaScript中，所有的变量实际上都是某种类型的对象。一个数组就是一个Array类型的对象。所以以下实际是给lennon数组添加了三个属性。
+var lennon = Array();
+lennon["name"] = "John";
+lennon["year"] = 1940;
+lennon["living"] = false;
+
+```
