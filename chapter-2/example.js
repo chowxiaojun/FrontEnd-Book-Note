@@ -1,2 +1,2 @@
-<!-- 这是JavaScript中的注释
-// 这也是JavaScript中的注释
+var height = "about 5'10 \" tall";
+alert(height); 
