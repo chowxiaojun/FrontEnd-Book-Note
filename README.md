@@ -110,6 +110,7 @@ var temp = -20.3333;
 ```
 
 >  数组：是指一个变量表示一个值的组合
+
 ```
 var beatles = Array(4); // 声明长度
 var beatles = Array(); // 不声明长度
