@@ -107,18 +107,26 @@ var temperature = -20;
 var temp = -20.3333;
 
 // 3. 布尔值：true 或 false
+```
 
-// 4. 数组：是指一个变量表示一个值的组合
+>  数组：是指一个变量表示一个值的组合
+```
 var beatles = Array(4); // 声明长度
 var beatles = Array(); // 不声明长度
 var beatles = [];
 var beatles = Array("John", "Paul", "George", "Ringo");
 var beatles = ["John", "Paul", "George", "Ringo"];
 var lennon = ["John", 1940, false]; // 3中数据类型混在一起存入一个数组
-// 关联数组，在JavaScript中，所有的变量实际上都是某种类型的对象。一个数组就是一个Array类型的对象。所以以下实际是给lennon数组添加了三个属性。
+```
+
+> 关联数组，在JavaScript中，所有的变量实际上都是某种类型的对象。一个数组就是一个Array类型的对象。
+
+```
+// 所以，以下实际是给lennon数组添加了三个属性，理想情况下，不应该修改Array对象的属性，而应该使用通用的对象(Object)
 var lennon = Array();
 lennon["name"] = "John";
 lennon["year"] = 1940;
 lennon["living"] = false;
-
 ```
+
+> 对象
