@@ -110,7 +110,6 @@ var temp = -20.3333;
 ```
 
 >  数组：是指一个变量表示一个值的组合
-
 ```
 var beatles = Array(4); // 声明长度
 var beatles = Array(); // 不声明长度
@@ -130,4 +129,96 @@ lennon["year"] = 1940;
 lennon["living"] = false;
 ```
 
-> 对象
+> 对象：与数组类似，对象也是使用一个名字表示一组值，对象的每个值都是对象的一个属性。
+
+```
+var lennon = Object();
+lennon["name"] = "John";
+lennon["year"] = 1940;
+lennon["living"] = false;
+
+// 创建对象也可使用花括号法
+{propertyName: value, propertyName: value}
+```
+> 操作(operation)
+
+```
+// 1. 算术操作符，加减乘除(+, -, *, /)，赋值(=)
+// 赋值运算并非总是返回真值：
+if (a = false) {
+    alert('hello, world');
+}
+```
+> 条件语句：用做判断。
+
+```
+if (condition) { // 条件求值的结果永远是一个布尔值
+    statements;
+}
+
+// 2. 比较操作符，大于(>)，小于(<)，大于等于(>=)，小于等于(<=)，等于(==)，不等于(!=)，
+// 相等操作符==并不表示严格相等，如下所示
+var a = false;
+var b = ""; // 在JS中，空字符串表示假值
+if (a == b) { // 这里会返回true
+    alert("a eqauls b");
+}
+// 我们需要使用严格相等(===)，这不仅会比较值，而且会比较变量的类型，除了严格相等，还有严格不相等(!==)
+var a = false;
+var b = ""; // 在JS中，空字符串表示假值
+if (a === b) { // 这里会返回false
+    alert("a eqauls b");
+}
+// 3. 逻辑操作符， 与(&&)，或(||)，非(!)
+```
+
+> 循环语句：重复性的操作
+
+```
+// 1. while 循环
+while (condition) {
+    statements; // while循环内部必须发生一些会影响循环控制条件的事情
+}
+// 下面这种形式的while循环，循环语句内部的代码至少执行一次
+do {
+    statements;
+} while (condition);
+// 2.for 循环，循环控制结构更加清晰，与循环有关的所有内容都包含在for语句的圆括号内
+for (initital condition; test condition; alter condition) {
+    statements;
+}
+```
+
+> 函数：就是一组允许在你的代码里随时调用的语句。
+
+```
+// 作为良好的编程习惯，应该事先对函数做出定义再调用它们
+function shout() {
+    var beatles = Array("John", "Paul", "George", "Ringo");
+    for (var count = 0; count < beatles.length; count++) {
+        alert(beatles[count]);
+    }
+}
+// 还可向函数传递数据，即参数(argument)，函数名可使用驼峰法
+function name(arguments) {
+    statements;
+}
+```
+
+> 变量的作用域
+
+```
+// 1. 全局变量：可以在脚本中的任何位置被引用，包括函数内部
+// 2. 局部变量：只存在于声明它的那个函数的内部
+```
+
+> 对象：是一种非常重要的数据类型，是自包含的数据集合，包含在对象里的数据可以通过两种形式方位——属性和方法。
+> 属性：是隶属于某个特定对象的变量；
+> 方法是只有某个特定对象才能调用的函数。
+
+```
+// 1. 用户定义对象
+// 2. 内建对象，例如Array对象，Math对象和Date对象等。
+// 3. 宿主对象，除了内建对象，还可在JavaScript脚本里使用已经预先定义好的其他对象，这些对象不是有JavaScript语言本身二十由它的运行环境提供。
+// 宿主对象包括Form(表单)、Image(图像)和Element(表单元素)等
+```
