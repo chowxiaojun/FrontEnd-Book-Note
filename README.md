@@ -222,3 +222,41 @@ function name(arguments) {
 // 3. 宿主对象，除了内建对象，还可在JavaScript脚本里使用已经预先定义好的其他对象，这些对象不是有JavaScript语言本身二十由它的运行环境提供。
 // 宿主对象包括Form(表单)、Image(图像)和Element(表单元素)等
 ```
+
+### 第三章 DOM
+> document(文档)：DOM中的“D”，当创建了一个网页并把它加载到Web浏览器中时，DOM就产生了，它将你编写的网页文档转换为一个文档对象。
+
+> 对象：DOM总的“O”，
+
+```
+// 1. 用户定义对象(user-defined object)：由程序员自行创建的对象；
+// 2. 内建对象(native object)：内建在JavaScript语言里的对象，如Array、Math和Date等；
+// 3. 宿主对象(host object)：由浏览器提供的对象，如window对象，document对象。
+// window对象对应着浏览器窗口本身，这个对象的属性和方法通常统称为BOM(浏览器对象模型)；
+// document对象主要功能就是处理网页内容。
+```
+
+> 模型：DOM中的“M”，“Model”(模型)。
+
+```
+<!-- DOM把一份文档表示为一棵树(家谱树)，节点树 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Shopping list</title>
+</head>
+<body>
+    <h1>What to buy</h1>
+    <p title="a gengle reminder">Don't forget to buy this stuff.</p>
+    <ul id="purchases">
+        <li>A tin of beans</li>
+        <li class="sale">Cheese</li>
+        <li class="sale important">Milk</li>
+    </ul>
+</body>
+</html>
+<!-- <html>标签就是根元素，它代表整个文档。 -->
+```
+
+> 节点(node)
