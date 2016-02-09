@@ -240,6 +240,7 @@ function name(arguments) {
 
 ```
 <!-- DOM把一份文档表示为一棵树(家谱树)，节点树 -->
+<!-- 示例：购物清单 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -259,4 +260,66 @@ function name(arguments) {
 <!-- <html>标签就是根元素，它代表整个文档。 -->
 ```
 
-> 节点(node)
+> 节点(node)：文档是由节点构成的集合，在DOM里有许多不同类型的节点。
+
+1. 元素节点(element node)：即HTMl标签，例如`<body>`、`<p>`和`<ul>`之类的标签，这些元素节点在文档中的布局形成了文档的结构；
+2. 文本节点(text node)：在示例“购物清单”里，`<p>`元素包含着文本“Don't forget to buy this stuff.”，文本节点总是被包含在元素节点里面；
+3. 属性节点(attribute node)：用于对元素做出更具体的描述。
+
+```
+<p title="a gentle remider">Don't forget to buy this stuff.<p>
+// 在DOM中，title="a gentle reminder"是一个属性节点
+```
+
+> CSS：告诉浏览器应该如何显示一份文档的内容，节点树上的各个元素将继承其父元素的样式属性。
+
+```
+selector {
+    property: value;
+}
+
+p {
+    color: yellow;
+    font-family: "arial", sans-serif;
+    font-size: 1.2em;
+}
+```
+
+> class属性：可在所有的元素上任意应用class属性。
+
+```
+<p class="special">This paragraph has the special class</p>
+<h2 class="special">So does this headline</h2>
+
+.special {
+    font-style: italic;
+}
+h2.special {
+    text-transform: upppercase;
+}
+```
+
+> id属性：是给网页中的某个元素加上一个唯一的标识符。
+
+```
+<ul id="purchases">
+
+#purchases {
+    border: 1px solid white;
+    background-color: #333;
+    color: #ccc;
+    padding: 1rem;
+}
+
+#purchases li {
+    font-weight: bold;
+}
+```
+
+> 获取元素：有3种DOM方法可获取元素节点，分别是通过元素ID、通过标签名和通过class名字来获取。
+
+```
+// 1. getElementById
+// 2. getElementsByTagName
+// 3. getElementsByClassName
+```
