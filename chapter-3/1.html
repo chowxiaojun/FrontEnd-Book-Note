@@ -28,5 +28,18 @@
         <li class="sale">Cheese</li>
         <li class="sale important">Milk</li>
     </ul>
+    <script>
+        alert(typeof document.getElementById("purchases"));
+        var items = document.getElementsByTagName("li");
+        for (var i = 0; i < items.length; i++) {
+            alert(typeof items[i]);
+        }
+        // getElementsByTagName允许把一个通配符作为它的参数
+        alert(document.getElementsByTagName("*").length);
+
+        var shopping = document.getElementById("purchases");
+        var items = shopping.getElementsByTagName("*");
+        alert(items.length);
+    </script>
 </body>
 </html>
