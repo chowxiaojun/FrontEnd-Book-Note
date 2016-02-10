@@ -319,7 +319,38 @@ h2.special {
 > 获取元素：有3种DOM方法可获取元素节点，分别是通过元素ID、通过标签名和通过class名字来获取。
 
 ```
-// 1. getElementById
-// 2. getElementsByTagName
-// 3. getElementsByClassName
+// 1. getElementById：将返回一个与那个有着给定id属性值的元素节点对象的对象，它是document对象特有的函数
+document.getElementById(id);
+document.getElementById("purchases");
+
+// 2. getElementsByTagName：返回一个对象数组，每个对象分别对应着文档里有着给定标签的一个元素
+element.getElementsByTagName(tag);
+document.getElementsByTagName("li");
+var shopping = document.getElementById("purchases");
+var items = shopping.getElementsByTagName("*");
+
+// 3. getElementsByClassName：可通过class属性中的类名来访问元素，返回也是一个数组
+getElementsByClassName(class);
+document.getElementsByClassName("sale");
+// 使用这个方法还可以查找那些带有多个类名的元素，在参数中，类名的示例顺序不重要，就算元素还带有更多类名也没有关系
+document.getElementsByClassName("important sale");
+        // getElementsByClassName方法可能在比较老的浏览器中并不支持，下面的函数可支持新老浏览器
+        function getElementsByClassName(node, classname) {
+            if (node.getElementsByClassName) {
+                return node.getElementsByClassName(classname);
+            } else {
+                var res = new Array();
+                var elems = node.getElementsByTagName("*");
+                for (var i = 0, len = elems.length; i < elems.length; i++) {
+                    if (elems[i].classname.indexOf(classname) != -1) {
+                        res[res.length] = elems[i];
+                    }
+                }
+
+                return res;
+            }
+        }
 ```
+**文章推荐：**[The Ultimate getElementsByClassName](http://robertnyman.com/2008/05/27/the-ultimate-getelementsbyclassname-anno-2008/)。
+
+> 获取和设置属性
