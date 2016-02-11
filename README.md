@@ -354,3 +354,23 @@ document.getElementsByClassName("important sale");
 **文章推荐：**[The Ultimate getElementsByClassName](http://robertnyman.com/2008/05/27/the-ultimate-getelementsbyclassname-anno-2008/)。
 
 > 获取和设置属性
+
+1. getAttribute：`object.getAttribute(attribute)`，该方法只能通过元素节点对象调用；
+2. setAttribute：`object.setAttribute(attribute, value)`，该方法也只能用于元素节点。
+
+```
+// 获取每个<p>元素的title属性，无title属性返回null
+var paras = document.getElementsByTagName("p");
+for (var i = 0; i < paras.length; i++) {
+    var title = paras[i].getAttribute("title");
+    if (title) {
+        alert(paras[i].getAttribute("title"));
+    }
+}
+
+// 设置id为purchases的元素的title属性
+var shopping = document.getElementById("purchases");
+shopping.setAttribute("title", "a list of goods");
+alert(shopping.getAttribute("title"));
+```
+> **DOM的工作模式**：先加载文档的静态内容，在动态刷新，动态刷新不影响文档的静态内容，即对页面内容进行刷新却不需要再浏览器里刷新页面。
