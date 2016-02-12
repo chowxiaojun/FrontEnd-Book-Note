@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Image Gallery</title>
+    <link rel="stylesheet" href="styles/layout.css"/>
+</head>
+<body>
+    <h1>Snapshots</h1>
+    <ul>
+        <li>
+            <a href="images/HTML5.png" onclick="showPic(this); return false;" title="HTML5">HTML5</a>
+        </li>
+        <li>
+            <a href="images/angular.png" onclick="showPic(this); return false;" title="angular">angular</a>
+        </li>
+        <li>
+            <a href="images/react.png" onclick="showPic(this); return false;" title="react">react</a>
+        </li>
+        <li>
+            <a href="images/Firebase.png" onclick="showPic(this); return false;" title="Firebase">Firebase</a>
+        </li>
+    </ul>
+    <img id="placeholder" src="images/placeholder.gif" alt="my image gallery" />
+    <p id="description">Choose an image.</p>
+    <script type="text/javascript" src="script/showPic.js"></script>
+</body>
+</html>

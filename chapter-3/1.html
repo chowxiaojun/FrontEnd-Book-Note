@@ -40,6 +40,25 @@
         var shopping = document.getElementById("purchases");
         var items = shopping.getElementsByTagName("*");
         alert(items.length);
+
+        var sale = document.getElementsByClassName("sale");
+        var importantSale = document.getElementsByClassName("important sale");
+        // getElementsByClassName方法可能在比较老的浏览器中并不支持，下面的函数可支持新老浏览器
+        function getElementsByClassName(node, classname) {
+            if (node.getElementsByClassName) {
+                return node.getElementsByClassName(classname);
+            } else {
+                var res = new Array();
+                var elems = node.getElementsByTagName("*");
+                for (var i = 0, len = elems.length; i < elems.length; i++) {
+                    if (elems[i].classname.indexOf(classname) != -1) {
+                        res[res.length] = elems[i];
+                    }
+                }
+
+                return res;
+            }
+        }
     </script>
 </body>
 </html>
