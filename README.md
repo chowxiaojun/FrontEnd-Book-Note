@@ -374,3 +374,62 @@ shopping.setAttribute("title", "a list of goods");
 alert(shopping.getAttribute("title"));
 ```
 > **DOM的工作模式**：先加载文档的静态内容，在动态刷新，动态刷新不影响文档的静态内容，即对页面内容进行刷新却不需要再浏览器里刷新页面。
+
+### 第四章 案例研究：JavaScript图片库
+
+> DOM是一种适用于多种环境和多种程序设计语言的通用性API
+
+```
+```
+
+> Js文件合并：若一个站点用到多个JavaScript文件，为了减少对服务器的请求次数，应把这些.js文件合并到一个文件中
+
+```
+```
+
+> 添加事件处理函数的语法：
+
+```
+// 事件处理函数：在特定事件发生时调用特定的JavaScript代码
+event = "JavaScript statement(s)";
+onclick = "showPic(this)"
+```
+> 阻止默认行为：例如点击链接默认会跳转新页面
+
+```
+// 只要时间处理函数返回false
+onclick = "showPic(this); return false;"
+```
+> childNodes属性
+
+```
+// 在一棵节点树上，childNodes属性可以用来获取任何一个元素的所有子元素(包含所有类型的节点)，是一个包含这个元素全部子元素的数组
+element.childNodes
+```
+> nodeType属性：节点的类型，一共有12种可取值
+
+1. 元素节点的nodeType属性值是1；
+2. 属性节点的nodeType属性值是2；
+3. 文本节点的nodeType属性值是3。
+
+```
+// 节点类型
+node.nodeType
+```
+> nodeValue属性：用来得到或设置一个节点的值
+
+```
+node.nodeValue
+```
+> firstChild和lastChild属性
+
+```
+node.firstChild
+node.childNotes[0]
+node.lastChild
+node.childNotes[node.childNotes.length - 1]
+```
+
+> 本章重点：
+1. 如何利用DOM所提供的方法去编写图片库脚本；
+2. 如何利用事件处理函数把JavaScript代码与网页集成在一起。
