@@ -433,3 +433,25 @@ node.childNotes[node.childNotes.length - 1]
 > 本章重点：
 1. 如何利用DOM所提供的方法去编写图片库脚本；
 2. 如何利用事件处理函数把JavaScript代码与网页集成在一起。
+
+### 第五章 最佳实践
+
+> 本章内容：
+
+1. 平稳退化：确保网页在没有JavaScript的情况下也能正常工作；
+2. 分离JavaScript：把网页的结构和内容与JavaScript脚本的动作行为分开；
+3. 向后兼容性：确保老版本的浏览器不会因为你的JavaScript脚本而挂掉；
+4. 性能考虑：确保脚本执行的性能最优。
+
+> 平稳退化：一个在新窗口里打开一个链接的例子。
+
+```
+// JavaScript只用window对象的open()方法来创建新的浏览器窗口
+window.open(url, name, features)
+// url，在新窗口里打开的网页的URL地址，该参数为空时，将弹出一个空白的浏览器窗口
+// name，新窗口的名字，可以在代码里通过这个名字与新窗口进行通信
+// features，用于设置新窗口的各种属性，是一个以逗号分隔的字符串
+function popUp(winURL) {
+    window.open(winURL, "popup", "width=320,height=480");
+} 
+```
