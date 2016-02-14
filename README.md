@@ -453,5 +453,41 @@ window.open(url, name, features)
 // features，用于设置新窗口的各种属性，是一个以逗号分隔的字符串
 function popUp(winURL) {
     window.open(winURL, "popup", "width=320,height=480");
-} 
+}
+
+// (1) 通过"javascript:"伪协议来调用popUp函数，伪协议让我们通过一个链接来调用JavaScript函数
+<a href="javascript:popUp('http://www.qq.com/');">qq.com</a> 
+// (2) 内嵌的事件处理函数：把onclick事件处理函数作为属性嵌入<a>标签，"#"符号是一个仅供文档内部使用的链接记号
+<a href="#" onclick="popUp('http://www.qq.com/'); return false;"></a>
+
+// (3) 将href属性设置为真实的URL地址，让它成为一个有效的链接
+<a href="http://www.qq.com" onclick="popUp(this.href); return false;"></a>
+// 总结：第(1)、(2)种方法不能平稳退化，第(3)种方法即使JavaScript已被禁用(或是遇到了搜索引擎)，这个链接也是可用的，虽然不会新开一个窗口
+```
+
+> 结构与样式的分离：CSS能够帮助你将Web文档的内容结构(标记)和版面设计(样式)分离开来，这样可以却表网页都能平稳退化
+
+```
+<!-- 内联方式 -->
+<p style="font-weight: bold; color: red;“>
+Be careful!
+</p>
+
+<!-- 推荐方式 -->
+<p class="warning">
+Be careful!
+</p>
+// 样式
+.warning {
+    font-weight: bold;
+    color: red;
+}
+```
+
+> 渐进增强：就是用一些额外的信息层去包裹原始数据
+> 分离JavaScript：前面将JavaScript函数存入外部文件，貌似已经实现分离，但是问题出现在内嵌的事件处理函数中，类似使用style属性，在HTML文档中使用诸如onclick之类的属性也是一种没有效率又容易引发问题的做法。
+
+```
+// 若我们用一个”挂钩“，就像CSS机制中的class或id属性那样，把JavaScript代码调用行为与HTML文档的结构和内容分离开，网页就健壮得多
+
 ```
