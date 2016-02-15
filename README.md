@@ -489,5 +489,62 @@ Be careful!
 
 ```
 // 若我们用一个”挂钩“，就像CSS机制中的class或id属性那样，把JavaScript代码调用行为与HTML文档的结构和内容分离开，网页就健壮得多
+<a href="http://www.qq.com/" class="popup">qq</a>
+element.event = action...
+// 上面的关键是怎样才能把应该获得这个事件的元素确定下来？
+// 我们可以利用class或id属性
+// (1) 用getElementById，添加事件到某个带有特定id属性的元素上
+getElementById(id).event = action
+// (2) 用getElementsByTagName 和 getAttribute把事件添加到有着特定属性的一组元素上
+var links = document.getElementsByTagName("a");
+for (var i = 0; i < links.length; i++) {
+    if (links[i].getAttribute("class") == "popup") {
+        links[i].onclick = function() {
+            popUp(this.getAttribute("href"));
+            return false;
+        }
+    }
+}
+
+// 为了保证getElementsByTagName正常工作，必须让上述代码在HTML文档全部加载到浏览器之后马上执行
+window.onload = prepareLinks;
+function prepareLinks() {
+    var links = document.getElementsByTagName("a");
+    for (var i = 0; i < links.length; i++) {
+        if (links[i].getAttribute("class") == "popup") {
+            links[i].onclick = function() {
+                popUp(this.getAttribute("href"));
+                return false;
+            }
+        }
+    }
+}
+
+function popUp(winURL) {
+    window.open(winURL, "popup", "width=320,height=480");
+}
+```
+
+> 向后兼容：不同的浏览器(老版本的浏览器)并不一定支持DOM提供的方法和属性，对JavaScript的支持程度也不一样
+
+```
+// 解决方案：
+// (1) 对象检测
+if (method) {
+    statements
+}
+
+// (2) 浏览器嗅探技术(browser sniffing)：通过提取浏览器供应商提供的信息来解决向后兼容问题
+// 存在问题：1.浏览器提供的信息并不准确；2.为了适配各种不同的浏览器，嗅探脚本会越发复杂；3.当浏览器出新版本时，可能需要修改相关脚本
+```
+
+> **性能考虑**
+
+```
+// (1) 尽量少访问DOM和尽量少较少标记
+// (2) 合并及放置脚本于合适位置：一般来说，根据HTTP规范，浏览器每次从同一域名中最多只能同时下载两个文件
+// (3) 压缩脚本：将脚本文件中不必要的字节，如空格和注释，统统删除，还有使用更短的变量名，所以你的脚本应该有两个版本，一个是工作副本，可以修改代码并添加注释；另一个是精简副本，用于放在站点上
+// 为了区分两个版本，会在精简副本的文件名中加上min字样
+<script src="scripts/scriptName.min.js"></script>
 
 ```
