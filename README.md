@@ -548,3 +548,60 @@ if (method) {
 <script src="scripts/scriptName.min.js"></script>
 
 ```
+
+### 第六章 案例研究：图片库改进版
+
+> 与DOM脚本编程相关的问题不外乎以下几类：
+
+- 平稳退化
+- 向后兼容
+- 分离JavaScript
+
+> 它支持平稳退化吗？
+
+```
+<!-- 代码如下：即使JavaScript功能已被禁用，用户也可以浏览器图片库里的所有图片，网页里的所有连接也都可以正常工作 -->
+<li>
+    <a href="images/HTML5.png" onclick="showPic(this); return false;" title="HTML5">HTML5</a>
+</li>
+```
+
+> 它的JavaScript与HTML标记是分离的吗？
+
+```
+<!-- 代码如下：两者是没有分离的 -->
+<li>
+    <a href="images/HTML5.png" onclick="showPic(this); return false;" title="HTML5">HTML5</a>
+</li>
+
+<!-- 修改代码如下： 给列表增加一个id属性-->
+<ul id="imagegallery">
+    <li>
+        <a href="images/HTML5.png" title="HTML5">HTML5</a>
+    </li>
+    <li>
+        <a href="images/angular.png" title="angular">angular</a>
+    </li>
+    <li>
+        <a href="images/react.png" title="react">react</a>
+    </li>
+    <li>
+        <a href="images/Firebase.png" title="Firebase">Firebase</a>
+    </li>
+</ul>
+
+// 添加事件处理函数
+function prepareGallery() {
+    if (!document.getElementsByTagName) return false;
+    if (!document.getElementById) return false;
+    if (!document.getElementById("imagegallery")) return false;
+    var gallery = document.getElementById("imagegallery");
+    var links = gallery.getElementsByTagName("a");
+    for (var i = 0; i < links.length; i++) {
+        links[i].onclick = function() {
+            showPic(this);
+            return false;        
+        }
+    }
+}
+```
