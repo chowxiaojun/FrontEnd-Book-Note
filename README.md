@@ -592,9 +592,17 @@ if (method) {
 
 // 添加事件处理函数
 function prepareGallery() {
-    if (!document.getElementsByTagName) return false;
-    if (!document.getElementById) return false;
-    if (!document.getElementById("imagegallery")) return false;
+    // 检查点
+    if (!document.getElementsByTagName) {
+        return false;
+    }
+    if (!document.getElementById) {
+        return false;
+    }
+    if (!document.getElementById("imagegallery")) {  // 预防性措施，万一以后发生变化导致代码运行错误
+        return false;
+    }
+    // 将列表元素存在一个变量中 
     var gallery = document.getElementById("imagegallery");
     var links = gallery.getElementsByTagName("a");
     for (var i = 0; i < links.length; i++) {
@@ -604,4 +612,124 @@ function prepareGallery() {
         }
     }
 }
+
+// 共享onload事件，在网页加载完毕后立即执行该函数，
+// 由于网页加载完毕时会触发一个onload事件，这个事件与window对象相关联,
+// 所以，必须将prepareGallery函数绑定到该事件上
+window.onload = prepareGallery;
+
+// 问题：如果我们有两个函数需要绑定到onload事件上
+// (1) 逐一绑定到onload事件上，那么最后那个才会被实际执行
+window.onload = firstFunction;
+window.onload = secondFunction;
+// (2) 利用匿名函数
+window.onload = function() {
+    firstFunction();
+    secondFunction();
+}
+// (3) addLoadEvent ，http://simon.incutio.com
+function addLoadEvent(func) {
+    var oldonload = window.onload;
+    if (typeof window.onload != 'function') {
+        window.onload = func;   
+    } else {
+        window.onload = function() {
+            oldonload();
+            func();
+        }
+    }
+}
 ```
+> 不要做太多的架设
+
+```
+// 以下代码：未对某些元素是否存在做任何检查
+function showPic(whichpic) {
+    var src = whichpic.getAttribute("href");
+    var placeholder = document.getElementById("placeholder");
+    placeholder.setAttribute("src", src);
+    var text = whichpic.getAttribute("title");
+    var description = document.getElementById("description");
+    description.firstChild.nodeValue = text;
+}
+// 修改如下：
+function showPic(whichpic) {
+    if (!document.getElementById("placeholder")) {
+        return false;
+    }
+    var src = whichpic.getAttribute("href");
+    var placeholder = document.getElementById("placeholder");
+    placeholder.setAttribute("src", src);
+    if (document.getElementById("description")) {
+        var text = whichpic.getAttribute("title");
+        var description = document.getElementById("description");
+        description.firstChild.nodeValue = text;
+    }
+    return true;  // 为什么要增加这句？
+}
+// 增加 return true; 的原因：让showPic函数的返回值决定是否要禁止点击链接的默认行为，当placeholder元素不存在时，可以使用链接的默认行为
+links[i].onclick = function() {
+    return !showPic(this);
+}
+```
+
+> 优化：增加更多的检查，showPic函数里的代码变得更多了，在实际工作中，你要自己决定是否真的需要这些检查。他们针对的是HTML文档有可能不在你控制范围内的情况。
+
+```
+function showPic(whichpic) {
+    if (!document.getElementById("placeholder")) {
+        return false;
+    }
+    var src = whichpic.getAttribute("href");
+    var placeholder = document.getElementById("placeholder");
+    if (placeholder.nodeName != "IMG") {
+        return false;
+    }
+    placeholder.setAttribute("src", src);
+    if (document.getElementById("description")) {
+        var text = whichpic.getAttribute("title") ? whichpic.getAttribute("title") : "";
+        var description = document.getElementById("description");
+        if (description.firstChild.nodeType == 3) {
+            description.firstChild.nodeValue = text;
+        }
+    }
+```
+> 键盘访问
+
+```
+link[i].onclick = function() {
+    if (showPic(this)) {
+        return false;
+    } else {
+        return true;
+    }
+}
+links[i].onkeypress = links[i].onclick; // 专门处理键盘事件，但其实onclick事件对键盘访问的支持相当完美
+```
+
+> DOM Core
+
+- getElementById
+- getElementsByTagName
+- getAttribute
+- setAttribute
+
+上述这些都是DOM Core的组成部分，它们并不专属于JavaScript，支持DOM的任何一种程序语言都可以使用它们。它们的用途也并非仅限于处理网页，它们可以用来处理用任何一种标记语言(比如XML)编写出来的文档
+
+>  HTML-DOM：只能处理Web文档，元素的属性属于HTML-DOM，比如`onclick`
+
+```
+document.getElementsByTagName("from")  // DOM-Core
+document.forms // HTML-DOM
+
+element.getAttribute("src")
+element.src
+```
+
+> 本章改进点：
+
+- 尽量让JavaScript代码不再依赖于那些没有保证的架设，为此引入了许多项测试和检查——**平稳退化**
+- 没有使用onkeypress事件处理函数——**可访问性**
+- JavaScript代码与文档分离——**结构与行为分离**
+
+### 第七章 动态创建标记
