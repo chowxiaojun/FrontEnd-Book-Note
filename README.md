@@ -733,3 +733,68 @@ element.src
 - JavaScript代码与文档分离——**结构与行为分离**
 
 ### 第七章 动态创建标记
+
+> 本章内容
+
+- 传统技术：`document.write`和`innerHTML`
+- 深入剖析DOM方法：`createElement`、`createTextNode`、`appendChild`和`insertBefore`
+
+> document.write：document对象的write()方法可以方便快捷地把字符串插入到文档里
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Test</title>
+</head>
+<body>
+    <script>
+        document.write("<p>This is inserted.</p>");
+    </script>
+</body>
+</html>
+
+// document.write的最大缺点是违背了“行为与表现分离”的原则，
+// 即使把document.write语句挪到外部函数里，还是需要在标记的
+// <body>部分使用<script>标签才能调用那个函数
+function insertParagraph(text) {
+    var str = "<p>";
+    str += text;
+    str += "</p>";
+    document.write(str);
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Test1</title>
+</head>
+<body>
+    <script src="test1.js" />
+    <script>
+        insertParagraph("This is inserted.");
+    </script>
+</body>
+</html>
+```
+
+> innerHTML属性：目前的浏览器几乎都支持该属性，它并不是W3C DOM标准的组成部分，但现已经包含到HTML5规范中。**用于读或写某给定元素里的HTML内容**
+
+```
+// 请把一下代码插入到test.html文档的<body>部分
+<div id="testdiv">
+    <p>This is <em>my</em> content.</p>
+</div>
+
+// 一旦使用了innerHTML属性，它的全部内容都将被替换 
+window.onload = function() {
+    var testdiv = document.getElementById("testdiv");
+    testdiv.innerHTML = "<p>This is <em>my</em> content.</p>";
+}
+```
+> DOM方法
+
+```
+```
