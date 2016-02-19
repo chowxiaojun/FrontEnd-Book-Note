@@ -797,4 +797,32 @@ window.onload = function() {
 > DOM方法
 
 ```
+<div id="testdiv">
+</div>
+// 功能：把一段文本插入testdiv元素
+// createElement方法
+var para = document.createElement("p"); // 文档碎片  不是任何一棵DOM节点树的组成部分
+// appendChild方法
+var testdiv = document.getElementById("testdiv");
+testdiv.appendChild(para);
+// createTextNode方法   创建文本节点
+var text = document.createTextNode("Hello world");
+para.appendChild(text);
+
+// 插入更复杂的组合：<p>This is <em>my</em> content.</p>
+window.onload = function() {
+    var para = document.createElement("p");
+    var txt1 = document.createTextNode("This is ");
+    para.appendChild(txt1);
+    var emphasis = document.createElement("em");
+    var txt2 = document.createTextNode(my);
+    emphasis.append(txt2);
+    para.appendChild(emphasis);
+    var txt3 = document.createTextNode(" content.");
+    para.appendChild(txt3);
+    var testdiv = document.getElementById("testdiv");
+    testdiv.appendChild(para);
+}
 ```
+
+> 重回图片库
