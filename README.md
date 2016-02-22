@@ -825,4 +825,104 @@ window.onload = function() {
 }
 ```
 
-> 重回图片库
+> 重回图片库：还存在问题是在HTML文件中"placeholder"标记和"description"标记仅是为showPic脚本服务的，这导致结构和行为没有彻底分开。
+
+```
+// 动态创建
+function preparePlaceholder() {
+    if (!document.createElement) {
+        return false;
+    }
+    if (!document.createTextNode) {
+        return false;
+    }
+    if (!document.getElementById) {
+        return false;
+    }
+    if (!document.getElementById("imagegallery")) {
+        return false;
+    }
+    var placeholder = document.createElement("img");
+    placeholder.setAttribute("id", "placeholder");
+    placeholder.setAttribute("src", "images/placeholder.gif");
+    placeholder.setAttribute("alt", "my image gallery");
+    var description = document.createElement("p");
+    description.setAttribute("id", "description");
+    var desctext = document.createTextNode("Choose an image.");
+    description.appendChild(desctext);
+    // (1) 直接用body元素添加元素，那么该元素会是文档中的最后一个元素，这种方式不灵活
+    // document.getElementsByTagName("body")[0].appendChild(placeholder);
+    // document.getElementsByTagName("body")[0].appdneChild(description);
+    // or HTML-DOM提供的属性body
+    // document.body.appendChild(placeholder);
+    // document.body.appendChild(description);
+    // (2) 在已有元素前插入一个新元素，DOM提供了insertBefore()方法
+    // parentElement.insertBefore(newElement, targetElement);
+    // var gallery = document.getElementById("imagegallery");
+    // gallery.parentNode.insertBefore(placeholder, gallery);
+    // gallery.parentNode.insertBefore(description, gallery);
+    // (3) 在现有元素后插入一个新元素，DOM未提供相应方法，需要自己实现
+    var gallery = document.getElementById("imagegallery");
+    insertAfter(placeholder, gallery);
+    insertAfter(description, placeholder);
+}
+
+// 在现有元素后插入一个新元素
+function insertAfter(newElement, targetElement) {
+    var parent = targetElement.parentNode;
+    if (parent.lastChild == targetElement) {
+        parent.appendChild(newElement);
+    } else {
+        // 将新元素插入到目标元素和目标元素的下一个兄弟元素之间
+        parent.insertBefore(newElement, targetElement.nextSibling);
+    }
+}
+```
+
+> Ajax：用于概括异步加载页面内容的技术。
+
+```
+// Ajax之前，Web应用都要涉及大量的页面刷新：用户点击了某个链接，
+// 请求发送回服务器，然后服务器根据用户的操作再返回新页面。
+// 使用Ajax就可以做到只更新页面中的一小部分，而不必在此加载整个页面
+function getHTTPObject() {
+    if (typeof XMLHttpRequest == "undefined") {
+        try {
+            return new ActiveObject("Msxml2.XMLHTTP.6.0");
+        } catch(e) {
+        }
+        try {
+            return new ActiveObject("Msxml2.XMLHTTP.3.0");
+        } catch(e) {
+        }
+        try {
+            return new ActiveObject("Msxml2.XMLHTTP");
+        } catch(e) {
+        }
+        return false;
+    }
+    return new XMLHttpRequest();
+}
+
+function getNewContent() {
+    var request = getHTTPObject();
+    if (request) {
+        request.open("GET", "example.txt", true);
+        request.onreadystatechange = function() {
+            if (request.readyState == 4) {
+                var para = document.createElement("p");
+                var txt = document.createTextNode(request.responseText);
+                para.appendChild(txt);
+                document.getElementById("new").appendChild(para);
+            }
+        }    
+        request.send(null);
+    } else {
+        alert("Sorry, your brower doesn\'t support XMLHTTPRequest");
+    }
+}
+```
+
+> 渐进增强与Ajax
+
+### 第八章 充实文档的内容
