@@ -926,3 +926,129 @@ function getNewContent() {
 > 渐进增强与Ajax
 
 ### 第八章 充实文档的内容
+> 本章内容：
+
+- 一个为文档创建“缩略语列表”的函数
+- 一个为文档创建“文献来源链接”的函数
+- 一个为文档创建“快捷键清单”的函数
+
+> 不应该做什么：不要滥用DOM(使用DOM技术把一些重要的内容添加到网页上)
+
+```
+// 1. 渐进增强(progressive enhancement)：总是从最核心的部分，也就是从内容开始，应该根据内容使用标记实现良好的结构；然后再逐步加强这些内容
+// 2. 平稳退化：渐进增强的实现必然支持平稳退化，如果你按照渐进增强的原则去充实内容，你为内容添加的样式和行为就自然支持平稳退化。
+```
+
+> 把“不可见”变为”可见“
+
+```
+// 大多数属性值在Web浏览器都是不显示的，只有极少数属性例外，例如title属性，但是不同浏览器的呈现方式并不一样，我们可以利用DOM编程来统一显示这些属性值
+// 1. 得到隐藏在属性里的信息
+// 2. 创建标记封装这些信息
+// 3. 把这些标记插入到文档
+```
+> 内容
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Explaining the Document Object Model</title>
+</head>
+<body>
+    <h1>What is the Document Object Model?</h1>
+    <p>
+        The <abbr title="World Wide Web Consortium">W3C</abbr> defines the
+        <abbr title="Document Object Model">DOM</abbr> as:
+    </p>
+    <blockquote cite="http://www.w3.org/DOM/">
+        <p>
+            A platform- and language-neutral interface that will allow programs
+            and scripts to dynamically access and update the content, structure
+            and style of documents.
+        </p>
+    </blockquote>
+    <p>
+        It is an <abbr title="Application Programing Interface">API</abbr> that
+        can be used to navigate <abbr title="HyperText Markup Language">HTML</abbr>
+        and <abbr title="eXtensible Markup Language">XML</abbr> documents.
+    </p>
+</body>
+</html>
+```
+
+> 显示“缩略语列表”
+
+```
+<dl>
+    <dt>W3C</dt>
+    <dd>World Wide Web Consortium</dd>
+    <dt>DOM</dt>
+    <dd>Document Object Model</dd>
+    <dt>API</dt>
+    <dd>Application Programing Interface</dd>
+    <dt>HTML</dt>
+    <dd>HyperText Markup Language</dd>
+    <dt>XML</dt>
+    <dd>eXtensible Markup Language</dd>
+</dl>
+
+function displayAbbreviations() {
+    if (!document.getElementsByTagName) {
+        return false;
+    }
+    if (!document.createElement) {
+        return false;
+    }
+    if (!document.createTextNode) {
+        return false;
+    }
+    // 取得所有缩略词
+    var abbreviations = document.getElementsByTagName("abbr");
+    if (abbreviations.length < 1) {
+        return false;
+    }
+    // 遍历文档中的所有abbr元素
+    var defs = new Array();
+    for (var i = 0; i < abbreviations.length; i++) {
+        var current_abbr = abbreviations[i];
+        if (current_abbr.childNodes.length < 1) {
+            // 这里是为了能在IE浏览器中实现平稳退化
+            // 因为IE浏览器不支持abbr元素
+            continue;
+        }
+        var definition = current_abbr.getAttribute("title");
+        var key = current_abbr.lastChild.nodeValue;
+        defs[key] = definition;
+    }
+    // 创建定义列表
+    var dlist = document.createElement("dl"); // dl元素
+    for (key in defs) {
+        var definition = defs[key];
+        // 创建定义标题
+        var dtitle = document.createElement("dt");  // dt元素
+        var dtitle_text = document.createTextNode(key);
+        dtitle.appendChild(dtitle_text);
+        // 创建定义描述
+        var ddesc = document.createElement("dd"); // dd元素
+        var ddesc_text = document.createTextNode(definition);
+        ddesc.appendChild(ddesc_text);
+        dlist.appendChild(dtitle);
+        dlist.appendChild(ddesc);
+    }
+    if (dlist.childNodes.length < 1) {
+        return false;
+    }
+    // 创建标题
+    var header = document.createElement("h2");
+    var header_text = document.createTextNode("Abbreviations");
+    header.appendChild(header_text);
+    // 把标题添加到页面主体
+    document.body.appendChild(header);
+    // 把定义列表添加到页面主体
+    document.body.appendChild(dlist);
+}
+```
+
+> 显示“文献来源链接表”
