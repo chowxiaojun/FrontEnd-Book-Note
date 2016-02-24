@@ -1052,3 +1052,125 @@ function displayAbbreviations() {
 ```
 
 > 显示“文献来源链接表”
+
+```
+<blockquote cite="http://www.w3.org/DOM/">
+    <p>
+        A platform- and language-neutral interface that will allow programs
+        and scripts to dynamically access and update the content, structure
+        and style of documents.
+    </p>
+</blockquote>
+
+// blockquote元素包含一个属性cite，用于说明blockquote元素的内容引自哪里，
+// 理论上，这是一个把文献资料与相关网页链接起来的好办法；但在实践中，浏览器
+// 会完全忽略cite属性的存在
+function displayCitations() {
+    if (!document.getElementsByTagName || !document.createElement
+        || !document.createTextNode) {
+            return false;
+    }
+    var quotes = document.getElementsByTagName("blockquote");
+    for (var i = 0; i < quotes.length; i++) {
+        var quote = quotes[i];
+        if (!quote.getAttribute("cite")) {
+            continue;
+        }
+        var url = quote.getAttribute("cite");
+        // 取得引用中的所有元素节点
+        var quoteChildren = quote.getElementsByTagName("*");
+        if (quoteChildren.length < 1) {
+            continue;
+        }
+        // 取得引用中的最后一个元素节点
+        var elem = quoteChildren[quoteChildren.length - 1];
+        // 创建标记
+        var link = document.createElement("a");
+        var link_text = document.createTextNode("source");
+        link.appendChild(link_text);
+        link.setAttribute("href", url);
+        var superscript = document.createElement("sup");
+        superscript.appendChild(link);
+        elem.appendChild(superscript);
+    }
+}
+```
+
+> **注意**：在编写DOM脚本时，不能想当然地认为某个节点肯定是一个元素节点，没有确切把握，就一定要去检查nodeType属性，有很多DOM方法只能用于元素节点，如果用在了文本节点上，就会出错。
+
+```
+<blockquote cite="http://www.w3.org/DOM/">
+    <p>
+        A platform- and language-neutral interface that will allow programs
+        and scripts to dynamically access and update the content, structure
+        and style of documents.
+    </p>
+</blockquote>
+
+// 一般看来，blockquote元素的最后一个子节点应该是p元素，
+// 但是在</p>标签和</blockquote>标签之间还存在一个换行符，
+// 有些浏览器会把这个换行符解释为一个文本节点
+quotes[i].lastChild;
+// 我们可能希望有个lastChildElement属性就好了，但是这个属性是没有的，当然可以自己实现
+```
+
+> 显示“快捷键清单”
+
+```
+// accesskey属性可以把一个元素(如链接)与键盘上的某个特定按键关联在一起
+// Windows系统中，快捷键的用法：在键盘上同时按下Alt键和特定按键
+// Mac系统中，同时按下Ctrl键和特定按键
+<ul id="navigation">
+    <li><a href="index.html" accesskey="1">Home</a></li>
+    <li><a href="search.html" accesskey="4">Search</a></li>
+    <li><a href="contact.html" accesskey="9">Contact</a></li>
+</ul>
+
+function displayAccessKeys() {
+    if (!document.getElementsByTagName || !document.createElement
+        || !document.createTextNode) {
+        return false;
+    }
+
+    var links = document.getElementsByTagName("a");
+    var akeys = new Array();
+    for (var i = 0; i < links.length; i++) {
+        var current_link = links[i];
+        if (!current_link.getAttribute("accesskey")) {
+            continue;
+        }
+        var key = current_link.getAttribute("accesskey");
+        var text = current_link.lastChild.nodeValue;
+        akeys[key] = text;
+    }
+    var list = document.createElement("ul");
+    for (key in akeys) {
+        var text = akeys[key];
+        var str = key + ": " + text;
+        var item = document.createElement("li");
+        var item_text = document.createTextNode(str);
+        item.appendChild(item_text);
+        list.appendChild(item);
+    }
+
+    var header = document.createElement("h3");
+    var header_text = document.createTextNode("Accesskeys");
+    header.appendChild(header_text);
+    document.body.appendChild(header);
+    document.body.appendChild(list);
+}
+```
+
+> 检索和添加信息：用JavaScript函数先把文档结构里的一些现有信息提取出来，再把那些信息以一种清晰和有意义的方式重新插入到文档中。
+
+```
+// JavaScript脚本只应该用来充实文档的内容，要避免使用DOM技术来创建核心内容
+```
+
+### 第九章 CSS-DOM
+
+> 本章内容
+
+- style属性
+- 如何检索样式
+- 如何改变样式
