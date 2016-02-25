@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Example</title>
+</head>
+<body>
+    <p id="example" style="color: grey; font-family: 'Arial', sans-serif">
+        An example of a paragraph
+    </p>
+    <script>
+        window.onload = function() {
+            var para = document.getElementById("example");
+            alert(typeof para.nodeName);
+            alert(typeof para.style);
+            alert("The color is " + para.style.color);
+            alert("The font family is " + para.style.fontFamily);
+            var para = document.getElementById("example");
+            // style对象的属性的值必须放在引号里
+            para.style.color = "black";
+        }
+    </script>
+</body>
+</html>
