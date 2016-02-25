@@ -1174,3 +1174,103 @@ function displayAccessKeys() {
 - style属性
 - 如何检索样式
 - 如何改变样式
+
+> 三位一体的网页
+
+- 结构层(HTML)
+- 表示层(CSS)
+- 行为层(JavaScript)
+
+> 结构层：由HTML之类的标记语言负责创建，标签(tag)，对网页内容的**语义**含义做出了描述。
+
+```
+<!-- <p>标签表达了这样一种语义：这是一个文本端 -->
+<p>An example of a paragraph</p>
+```
+> 表示层：由CSS负责完成，CSS描述页面内容应该如何呈现
+
+```
+p {
+    color: grey;
+    font-family: "Arial", sans-serif;
+}
+```
+
+> 行为层：负责内容应该如何响应事件这一问题。这是JavaScript和DOM来控制
+
+```
+var paras = document.getElementsByTagName("p");
+for (var i = 0; i < paras.length; i++) {
+    paras[i].onclick = function() {
+        alert("You clicked on a paragraph.");
+    }
+}
+```
+注：网页的表示层和行为层总是存在的，即使未明确地给出任何具体的指令也是如
+此。此时Web浏览器将应用它的默认样式和默认事件处理函数。
+
+> 分离
+
+- 使用HTML去搭建文档的结构
+- 使用CSS去设置文档的呈现效果
+- 使用DOM脚本去实现文档的行为
+
+但是以上三种技术之前存在一些潜在的重叠区域。
+
+> style属性
+
+```
+// 文档的每个元素节点都有一个style属性，包含着元素的样式，style属性也是一个对象
+element.style.property
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Example</title>
+</head>
+<body>
+    <p id="example" style="color: grey; font-family: 'Arial', sans-serif">
+        An example of a paragraph
+    </p>
+    <script>
+        window.onload = function() {
+            var para = document.getElementById("example");
+            alert(typeof para.nodeName);
+            alert(typeof para.style);
+        }
+    </script>
+</body>
+</html>
+```
+> 获取样式
+
+```
+// style对象的color属性
+element.style.color
+// font-family属性，DOM采用驼峰命名法
+element.style.fontFamily
+```
+
+> 内嵌(内联)样式：通过style属性获取样式有很大的局限性，它只能返回内联样式，但是内联样式不是使用CSS的好办法，它将表现信息与结构混杂在一起
+
+```
+<p id="example" style="color: grey; font-family: 'Arial', sans-serif">
+
+p#example {
+    color: grey;
+    font: 12px 'Arial', sans-serif;
+}
+```
+
+> 设置样式：用DOM设置的样式，就可以用DOM再把它们检索出来
+
+```
+window.onload = function() {
+    var para = document.getElementById("example");
+    // style对象的属性的值必须放在引号里
+    para.style.color = "black";
+}
+```
+
+> 何时该用DOM脚本设置样式
