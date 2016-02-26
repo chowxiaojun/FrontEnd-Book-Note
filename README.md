@@ -1,3 +1,4 @@
+
 ### 第一章 JavaScript简史
 
 > Web标准：
@@ -1274,3 +1275,164 @@ window.onload = function() {
 ```
 
 > 何时该用DOM脚本设置样式
+
+```
+// 1. 根据元素在节点树里的位置来设置样式
+/**
+ * 给h1元素后面的每个元素添加一个class属性
+ */
+function styleHeaderSiblings() {
+    if (!document.getElementsByTagName) {
+        return false;
+    }
+    var headers = document.getElementsByTagName("h1");
+
+    for (var i = 0; i < headers.length; i++) {
+        var elem = null;
+        elem = getNextElement(headers[i].nextSibling);
+        if (elem) {
+            elem.style.fontWeight = "bold";
+            elem.style.fontSize = "1.2em";
+            elem.style.color = "grey";
+        }
+    }
+}
+
+/**
+ * 返回某节点的下个元素节点
+ * @param node 某节点的下个节点
+ */
+function getNextElement(node) {
+    // 如果是元素节点
+    if (node.nodeType == 1) {
+        return node;
+    }
+
+    if (node.nextSibling) {
+        return getNextElement(node.nextSibling);
+    }
+
+    return null;
+}
+
+// 2. 根据某种条件反复设置某种样式
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Cities</title>
+    <link rel="stylesheet" media="screen" href="styles/format.css"/>
+</head>
+<body>
+    <table>
+        <caption>Itinerary</caption>
+        <thead>
+            <tr>
+                <th>When</th>
+                <th>Where</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>June 9th</th>
+                <th>Portland, <abbr title="Oregon">OR</abbr></th>
+            </tr>
+            <tr>
+                <th>June 10th</th>
+                <th>Seattle, <abbr title="Washington">WA</abbr></th>
+            </tr>
+            <tr>
+                <th>June 12th</th>
+                <th>Sacramento, <abbr title="California">CA</abbr></th>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
+
+// 实现功能：让表格里的行更可读的常用技巧是交替改变它们的背景色
+// CSS3方式
+tr:nth-child(odd) {
+    background-color: #ffc;
+}
+tr:nth-child(even) {
+    background-color: #fff;
+}
+// DOM方式
+function stripeTables() {
+    if (!document.getElementsByTagName) {
+        return false;
+    }
+
+    var tables = document.getElementsByTagName("table");
+    var odd, rows;
+    for (var i = 0; i < tables.length; i++) {
+        odd = false;
+        rows = tables[i].getElementsByTagName("tr");
+        for (var j = 0; j < rows.length; j++) {
+            if (odd) {
+                rows[j].style.backgroundColor = "#ffc";
+                odd = false;
+            } else {
+                odd = true;
+            }
+        }
+    }
+}
+
+// 3. 响应事件
+// 注：在chrome上测试没有作用
+function highlightRows() {
+    if (!document.getElementsByTagName) {
+        return false;
+    }
+    var rows = document.getElementsByTagName("tr");
+    for (var i = 0; i < rows.length; i++) {
+        rows[i].onmouseover = function() {
+            this.style.fontWeight = "bold";
+            this.style.color = "grey";
+        }
+        rows[i].onmouseout = function() {
+            this.style.fontWeight = "normal";
+            this.style.color = "black";
+        }
+    }
+}
+```
+
+> className属性：是一个可读/可写的属性，凡是元素节点都有这个属性
+
+```
+// 与其使用DOM直接改变某个元素的样式，不如通过JavaScript代码来更新这个元素的class属性，这样确保了网页的表示层和行为层分离得更加彻底
+/**
+ * 给元素节点追加class属性
+ */
+function addClass(element, value) {
+    if (!element.className) {
+        element.className = value;
+    } else {
+        var newClassName = element.className;
+        newClassName += " ";
+        newClassName += value;
+        element.className = newClassName;
+    }
+}
+```
+> 对函数进行抽象
+
+```
+function styleElementSiblings(tag, theclass) {
+    if (!document.getElementsByTagName) {
+        return false;
+    }
+    
+    var elems = document.getElementsByTagName(tag);
+    var elem;
+    for (var i = 0; i < elems.length; i++) {
+        elem = getNextElement(elems[i].nextSibling);
+        addClass(elem, theclass);   
+    }
+}
+```
+
+### 第十章 用JavaScript实现动画效果
