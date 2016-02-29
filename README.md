@@ -1,4 +1,3 @@
-
 ### 第一章 JavaScript简史
 
 > Web标准：
@@ -1436,3 +1435,66 @@ function styleElementSiblings(tag, theclass) {
 ```
 
 ### 第十章 用JavaScript实现动画效果
+
+> 动画基础知识：动画就是让元素的位置随着时间而不断地发生变化
+
+```
+// 1. 位置
+element {
+    position: absolute;
+    top: 50px;
+    left: 100px;
+}
+element.style.position = "ablolute";
+element.style.left = "100px";
+element.style.top = "50px";
+
+// 2. 时间
+// JavaScript函数setTimeout能够让某个函数在经过一段预定的时间之后才开始执行
+setTimeout("function", interval)
+variable = setTimeout("function", interval);
+// 取消等待执行队列里的某个函数
+clearTimeout(variable)
+
+// 3. 时间递增量
+// 真正的动画效果是一个渐变的过程，元素应该从出发点逐步地移动到目的地，而不是从出发点一下子跳跃到目的地
+
+// 抽象：拒绝硬编码
+function moveElement(elementID, final_x, final_y, interval) {
+    if (!document.getElementById) {
+        return false;
+    }
+    if (!document.getElementById(elementID)) {
+        return false;
+    }
+    var elem = document.getElementById(elementID);
+    var xpos = parseInt(elem.style.left);
+    var ypos = parseInt(elem.style.top);
+
+    if (xpos == final_x && ypos == final_y) {
+        return true;
+    }
+
+    if (xpos < final_x) {
+        xpos++;
+    }
+    if (xpos > final_x) {
+        xpos--;
+    }
+    if (ypos < final_y) {
+        ypos++;
+    }
+    if (ypos > final_y) {
+        ypos--;
+    }
+
+    elem.style.left = xpos + "px";
+    elem.style.top = xpos + "px";
+    var repeat = "moveElement('" + elementID + "'," + final_x+ "," + final_y + "," + interval + ")";
+    movement = setTimeout(repeat, interval);
+}
+```
+
+> 实用的动画：关键在于用户能不能控制，即根据用户行为移动一个页面元素可能起到增强网页的效果
+
+### 第十一章 HTML5
