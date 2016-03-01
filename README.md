@@ -1498,3 +1498,26 @@ function moveElement(elementID, final_x, final_y, interval) {
 > 实用的动画：关键在于用户能不能控制，即根据用户行为移动一个页面元素可能起到增强网页的效果
 
 ### 第十一章 HTML5
+> HTML5简介
+
+- [HTML5 开发指南](https://developer.mozilla.org/zh-CN/docs/Web/Guide/HTML/HTML5)
+
+> 来自朋友的忠告
+
+- [Modernizr](https://modernizr.com/)：是一个开源的JavaScript库，利用它的富特性检测功能，可以对HTML5文档进行更好的控制。
+
+> 几个示例
+
+```
+// 1. Canvas
+// 只有在基于用户操作实现交互时，使用<canvas>的优势才会显现出来
+// 2. 音频和视频
+// 3. 表单
+```
+
+> **视频容器**：mp4、m4v、avi、flv(Flash Video)，每个视频容器中，音频和视频轨道都使用的编解码器来编码。编解码器决定了浏览器在播放时应该如何解码音频和视频
+
+> **编解码器**：编解码器(视频：H.264、Theora、VP8，音频：mp3、aac、ogg)的核心就是一个算法，用于压缩和存储视频，已减小原始文件的大小，同时可能也可能不会损失品质
+
+
+### 第十二章 综合示例
