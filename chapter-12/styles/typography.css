@@ -1,1 +1,46 @@
-// 版式有关的样式
+body {
+    font-size: 76%;
+    font-family: "Helvetica", "Arial", sans-serif;
+}
+body * {
+    font-size: 1em;
+}
+a {
+    font-weight: bold;
+    text-decoration: none;
+}
+header nav {
+    font-family: "Lucida Grande", "Helvetica", "Arial", sans-serif;
+}
+header nav a {
+    text-decoration: none;
+    font-weight: bold;
+}
+article {
+    line-height: 1.8em;
+}
+article p {
+    margin: 1em 0;
+}
+h1 {
+    font-family: "Georgia", "Times New Roman", sans-serif;
+    font: 2.4em normal;
+}
+h2 {
+    font-family: "Georgia", "Times New Roman", sans-serif;
+    font: 1.8em normal;
+    margin-top: 1em;
+}
+h2 {
+    font-family: "Georgia", "Times New Roman", sans-serif;
+    font: 1.4em normal;
+    margin-top: 1em;
+}
+#imagegallery li {
+    list-style-type: none;
+}
+textarea {
+    font-family: "Helvetica", "Arial", sans-serif;
+}
+// 版式有关的样式：字体和大小很显然应该放在这里，但是外边距和内边距很难说是跟布局有关，还是与版式有关
+// 内边距已经在layout.css中定义，外边距将在这里定义
