@@ -92,5 +92,38 @@ article img {
     z-index: 99;
 }
 
+#imagegallery li {
+    display: inline;
+}
+
+td {
+    padding: .5em 3em;
+}
+th {
+    color: #edc;
+    background-color: #455;
+}
+tr td {
+    color: #223;
+    background-color: #eb6;
+}
+dl {
+    overflow: hidden;
+}
+dt {
+    float: left;
+}
+dd {
+    float: left;
+}
+
+label {
+    display: block;
+}
+
+fieldset {
+    border: 0;
+}
+
 // 整体布局有关的样式 首先是为一些块元素定义默认的样式，主要针对那些不支持它们的浏览器
 // 其次使用通配选择器把所有元素的内外边距设置为零

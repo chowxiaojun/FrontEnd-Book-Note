@@ -65,4 +65,17 @@ header nav a.here:active {
     background-color: #799;
 }
 
+tr.odd td {
+    color: #223;
+    background-color: #ec8;
+}
+tr.highlight td {
+    color: #223;
+    background-color: #cba;
+}
+
+input.placeholder {
+    color: grey;
+}
+
 // 颜色样式表，不管为哪个元素用什么颜色，都要同时给它一个背景色，否则可能会看不到某些文本

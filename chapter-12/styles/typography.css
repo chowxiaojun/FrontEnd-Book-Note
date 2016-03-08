@@ -42,5 +42,12 @@ h2 {
 textarea {
     font-family: "Helvetica", "Arial", sans-serif;
 }
+
+dt {
+    margin-right: 1em;
+}
+dd {
+    margin-right: 3em;
+}
 // 版式有关的样式：字体和大小很显然应该放在这里，但是外边距和内边距很难说是跟布局有关，还是与版式有关
 // 内边距已经在layout.css中定义，外边距将在这里定义
